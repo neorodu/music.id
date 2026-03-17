@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glass Music - Tuying Vibes 🎶</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2); /* background gradient biar glass kelihatan */
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      padding: 30px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #fff, #ddd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .album-art {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      margin: 0 auto 25px;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      animation: rotate 20s linear infinite paused;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .playing .album-art {
+      animation-play-state: running;
+    }
+    .track-info {
+      margin-bottom: 20px;
+    }
+    .track-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    .track-artist {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+    audio {
+      width: 100%;
+      margin: 20px 0;
+      outline: none;
+    }
+    audio::-webkit-media-controls-panel {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(5px);
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px 0;
+    }
+    .btn {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(5px);
+    }
+    .btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+    .playlist {
+      margin-top: 30px;
+      text-align: left;
+    }
+    .playlist h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    .song-item {
+      padding: 12px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .song-item:hover,
+    .song-item.active {
+      background: rgba(255,255,255,0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Music</h1>
+
+    <div class="album-art"><i class="fas fa-music"></i></div>
+
+    <div class="track-info">
+      <div class="track-title">Pilih Lagu Dulu...</div>
+      <div class="track-artist">By: gemagus</div>
+    </div>
+
+    <audio id="audioPlayer" controls>
+      <source src="" type="audio/mpeg">
+      Browser gak support audio nih...
+    </audio>
+
+
+
+    <div class="playlist">
+<div class="playlist">
+  <h3>Playlist Cinematic</h3>
+  <div class="song-item active" data-src="https://archive.org/download/cinematic_202603/Cinematic.mp3">Cinematic - Gemagus</div>
+  <div class="song-item" data-src="https://archive.org/download/cinematic_202603/Bahaya.mp3">Bahaya - Gemagus</div>
+    <div class="song-item active" data-src="https://archive.org/download/whispers-over-the-water-1/Dragon%20Wind%20Ascending.mp3"> Gemagus,1</div>
+  <div class="song-item" data-src="https://archive.org/download/whispers-over-the-water-1/Untitled%20(1).mp3">Gemagus,2</div>
+    <div class="song-item active" data-src="https://archive.org/download/whispers-over-the-water-1/Untitled%20(2).mp3">Cinematic,3</div>
+  <div class="song-item" data-src="https://archive.org/download/whispers-over-the-water-1/Untitled%20(3).mp3">Gemag,4</div>
+    <div class="song-item" data-src="https://archive.org/download/whispers-over-the-water-1/Untitled.mp3">Gemagus,5</div>
+      <div class="song-item" data-src="https://archive.org/download/whispers-over-the-water-1/Waiting%20At%20The%20Misty%20Pass%20(1).mp3">Gemagus,6</div>
+        <div class="song-item" data-src="https://archive.org/download/whispers-over-the-water-1/Waiting%20At%20The%20Misty%20Pass.mp3">Gemagus,7</div>
+          <div class="song-item" data-src="https://archive.org/download/whispers-over-the-water-1/Whispers%20Over%20The%20Water%20(1).mp3">Gemagus,8</div>
+  <!-- Kalau nanti tambah lagu lain, tinggal copy baris ini -->
+</div>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audioPlayer');
+    const playPauseBtn = document.getElementById('playPause');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const title = document.querySelector('.track-title');
+    const artist = document.querySelector('.track-artist');
+    const albumArt = document.querySelector('.album-art');
+    const container = document.querySelector('.container');
+    const songs = document.querySelectorAll('.song-item');
+
+    let currentSong = 0;
+
+    function loadSong(index) {
+      const song = songs[index];
+      audio.src = song.getAttribute('data-src');
+      title.textContent = song.textContent;
+      artist.textContent = "By: gemagus";
+      songs.forEach(s => s.classList.remove('active'));
+      song.classList.add('active');
+
+      audio.play().catch(() => {});
+      container.classList.add('playing');
+    }
+
+    function playPause() {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        container.classList.add('playing');
+      } else {
+        audio.pause();
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        container.classList.remove('playing');
+      }
+    }
+
+    songs.forEach((song, index) => {
+      song.addEventListener('click', () => {
+        currentSong = index;
+        loadSong(currentSong);
+      });
+    });
+
+    playPauseBtn.addEventListener('click', playPause);
+    prevBtn.addEventListener('click', () => {
+      currentSong = (currentSong - 1 + songs.length) % songs.length;
+      loadSong(currentSong);
+    });
+    nextBtn.addEventListener('click', () => {
+      currentSong = (currentSong + 1) % songs.length;
+      loadSong(currentSong);
+    });
+
+    audio.addEventListener('ended', () => {
+      currentSong = (currentSong + 1) % songs.length;
+      loadSong(currentSong);
+    });
+
+    // Mulai dengan lagu pertama kalau mau
+    // loadSong(0);
+  </script>
+</body>
+</html>
