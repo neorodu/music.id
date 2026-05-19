@@ -12,10 +12,10 @@ nextSlide();
 
 // Album Cards
 const albums = [
-  { title: "Midnight Dreams", artist: "KAKA", img: "https://picsum.photos/id/1015/400/400" },
-  { title: "Mountain Echo", artist: "KAKA", img: "https://picsum.photos/id/133/400/400" },
-  { title: "Neon Peak", artist: "KAKA", img: "https://picsum.photos/id/201/400/400" },
-  { title: "Lost in Valley", artist: "Luna Echo", img: "https://picsum.photos/id/1016/400/400" },
+  { title: "flute", artist: "gemagus", img: "https://picsum.photos/id/1015/400/400" },
+  { title: "Mountain film", artist: "Soundtrack", img: "https://picsum.photos/id/133/400/400" },
+  { title: "flute tradisional", artist: "Flute", img: "https://picsum.photos/id/201/400/400" },
+  { title: "movie", artist: "dramatis", img: "https://picsum.photos/id/1016/400/400" },
 ];
 
 const grid = document.getElementById('album-grid');
