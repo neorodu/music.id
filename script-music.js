@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
     hamburger.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
     });
-  }
 
-  // Tombol Close (X) di dalam menu
-  const closeBtn = document.createElement('button');
-  closeBtn.className = "absolute top-6 right-6 text-4xl text-zinc-400 hover:text-white";
-  closeBtn.innerHTML = '×';
-  closeBtn.onclick = () => mobileMenu.classList.add('hidden');
-  mobileMenu.appendChild(closeBtn);
+    // Tombol Close (X) di dalam menu
+    const closeBtn = document.createElement('button');
+    closeBtn.className = "absolute top-6 right-6 text-4xl text-zinc-400 hover:text-white";
+    closeBtn.innerHTML = '×';
+    closeBtn.onclick = () => mobileMenu.classList.add('hidden');
+    mobileMenu.appendChild(closeBtn);
+  }
 
   // ==================== SLIDESHOW ====================
   let current = 0;
@@ -33,11 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ==================== PLAYLIST ALBUM ====================
   const albums = [
-    { id: 1, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/musik-ajaib-gunakan/MUSIK%20AJAIB%20GUNAKAN%20HEADSET%20%20DJ%208D%20SUPER%20FULL%20BASS%20TERBARU%202025%20%28MHLS%20PRO%29.mp3" },
+    { id: 1, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/musik-ajaib-gunakan/MUSIK%20AJAIB%20GUNAKAN%20HEADSET%20%20DJ%[...]" },
     { id: 2, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/iringan-2/Iringan2.mp3" },
     { id: 3, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/epic-games_202604/Epic%20Games.mp3" },
-    { id: 4, title: "Lost in Valley", artist: "gemagus", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/epic-games_202604/Gms%20film.mp3" }
-    { id: 5, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20suasana%20desa%20dijamin%20langsung%20tidur%20-%20Dunia%20Relaksasi.mp3" }
+    { id: 4, title: "Lost in Valley", artist: "gemagus", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/epic-games_202604/Gms%20film.mp3" },
+    { id: 5, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20sua[...]" }
   ];
 
   const grid = document.getElementById('album-grid');
