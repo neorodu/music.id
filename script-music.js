@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     { id: 2, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/iringan-2/Iringan2.mp3" },
     { id: 3, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/epic-games_202604/Epic%20Games.mp3" },
     { id: 4, title: "Lost in Valley", artist: "gemagus", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/epic-games_202604/Gms%20film.mp3" },
-    { id: 5, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20sua[...]" }
+  { id: 5, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20sua[...]" }, 
   ];
 
   const grid = document.getElementById('album-grid');
