@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
     { id: 3, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/epic-games_202604/Epic%20Games.mp3" },
     { id: 4, title: "Lost in Valley", artist: "gemagus", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/epic-games_202604/Gms%20film.mp3" },
   { id: 5, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20suasana%20desa%20dijamin%20langsung%20tidur%20-%20Dunia%20Relaksasi.mp3" }, 
+     { id: 6, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/A1gemagus%20x%20ad%2Ctuying%20%28imam%29.mp3" },
+    { id: 7, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/Gemagus%28imam%29.mp3" },
+    { id: 8, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/a%2C%28imam%29sergmen.mp3" },
   ];
 
   const grid = document.getElementById('album-grid');
