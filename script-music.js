@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // ==================== PLAYLIST ALBUM ====================
   const albums = [
     { id: 1, title: "suara udan maen", artist: "Rain", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/raingueudan/rain%28gueudan%29.mp3" }, 
-    { id: 2, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://ia601903.us.archive.org/22/items/a-2-pendekar-3-x-adtuying-mashup/A2%20-%20pendekar3%20x%20ad%2Ctuying%20%28Mashup%29.mp3" },
+    { id: 2, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://ia601903.us.archive.org/22/items/a-2-pendekar-3-x-adtuying-mashup/A2%20-%20pendekar[...]
     { id: 3, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/iringan-2/Iringan2.mp3" },
     { id: 4, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3" },
     { id: 5, title: "Tersesat di hutan rain", artist: "gemagus", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3" },
-  { id: 6, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20suasana%20desa%20dijamin%20langsung%20tidur%20-%20Dunia%20Relaksasi.mp3" }, 
-   { id: 7, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/A1gemagus%20x%20ad%2Ctuying%20%28imam%29.mp3" },
+  { id: 6, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20suasa[...]
+   { id: 7, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/A1gemagus%20x%20ad%2Ctuying%20%28ima[...]
     { id: 8, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/Gemagus%28imam%29.mp3" },
     { id: 9, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/a%2C%28imam%29sergmen.mp3" },
   ];
@@ -73,6 +73,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // ==================== WEB AUDIO API - BASS & TREBLE ====================
+  let audioContext;
+  let audioSource;
+  let bassFilter;
+  let trebleFilter;
+  let masterGain;
+
+  function initAudioContext(audioElement) {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      audioSource = audioContext.createMediaElementAudioSource(audioElement);
+      
+      // Bass Filter (Low Pass / Low Shelf)
+      bassFilter = audioContext.createBiquadFilter();
+      bassFilter.type = 'lowshelf';
+      bassFilter.frequency.value = 200;
+      bassFilter.gain.value = 0;
+
+      // Treble Filter (High Shelf)
+      trebleFilter = audioContext.createBiquadFilter();
+      trebleFilter.type = 'highshelf';
+      trebleFilter.frequency.value = 3000;
+      trebleFilter.gain.value = 0;
+
+      // Master Gain
+      masterGain = audioContext.createGain();
+      masterGain.gain.value = 1;
+
+      // Connect: audioSource -> bass -> treble -> master -> destination
+      audioSource.connect(bassFilter);
+      bassFilter.connect(trebleFilter);
+      trebleFilter.connect(masterGain);
+      masterGain.connect(audioContext.destination);
+    }
+  }
+
   // ==================== MUSIC PLAYER PLAYLIST ====================
   let audioElement;
 
@@ -98,6 +134,23 @@ document.addEventListener('DOMContentLoaded', function() {
               <audio id="audio-player" class="w-full" controls></audio>
             </div>
 
+            <!-- Bass & Treble Controls -->
+            <div class="mt-6 bg-zinc-800 p-4 rounded-xl">
+              <div class="mb-4">
+                <label class="text-zinc-300 text-sm font-semibold block mb-2">
+                  Bass: <span id="bass-value">0</span>
+                </label>
+                <input id="bass-slider" type="range" min="-20" max="20" value="0" class="w-full accent-purple-500">
+              </div>
+
+              <div>
+                <label class="text-zinc-300 text-sm font-semibold block mb-2">
+                  Treble: <span id="treble-value">0</span>
+                </label>
+                <input id="treble-slider" type="range" min="-20" max="20" value="0" class="w-full accent-purple-500">
+              </div>
+            </div>
+
             <div class="flex justify-center gap-8 mt-8 text-5xl text-zinc-300">
               <button id="prev-btn"><i class="fas fa-backward"></i></button>
               <button id="play-pause-btn"><i class="fas fa-play-circle"></i></button>
@@ -114,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     audioElement = document.getElementById('audio-player');
+    initAudioContext(audioElement);
     loadTrack(currentTrackIndex);
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -122,6 +176,19 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('next-btn').onclick = nextTrack;
     document.getElementById('prev-btn').onclick = prevTrack;
     document.getElementById('play-pause-btn').onclick = togglePlay;
+
+    // Bass & Treble Sliders
+    document.getElementById('bass-slider').oninput = (e) => {
+      const value = e.target.value;
+      document.getElementById('bass-value').textContent = value;
+      if (bassFilter) bassFilter.gain.value = value;
+    };
+
+    document.getElementById('treble-slider').oninput = (e) => {
+      const value = e.target.value;
+      document.getElementById('treble-value').textContent = value;
+      if (trebleFilter) trebleFilter.gain.value = value;
+    };
 
     audioElement.onended = nextTrack;
   }
