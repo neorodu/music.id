@@ -33,15 +33,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ==================== PLAYLIST ALBUM ====================
   const albums = [
-    { id: 1, title: "suara udan maen", artist: "Rain", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/raingueudan/rain%28gueudan%29.mp3" }, 
+    { id: 1, title: "suara udan maen", artist: "Rain", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/raingueudan/rain%28gueudan%29.mp3"}, 
     { id: 2, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-2-pendekar-3-x-adtuying-mashup/A2%20-%20pendekar3%20x%20ad%2Ctuying%20%28Mashup%29.mp3"}, 
-    { id: 3, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/iringan-2/Iringan2.mp3" },
-    { id: 4, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3" },
-    { id: 5, title: "Tersesat di hutan rain", artist: "gemagus", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3" }, 
-  { id: 6, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20suasana%20desa%20dijamin%20langsung%20tidur%20-%20Dunia%20Relaksasi.mp3" }, 
-    { id: 7, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/A1gemagus%20x%20ad%2Ctuying%20%28imam%29.mp3" }, 
-    { id: 8, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/Gemagus%28imam%29.mp3" },
-    { id: 9, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/a%2C%28imam%29sergmen.mp3" },
+    { id: 3, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/iringan-2/Iringan2.mp3"},
+    { id: 4, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3"},
+    { id: 5, title: "Tersesat di hutan rain", artist: "gemagus", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3"}, 
+  { id: 6, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20suasana%20desa%20dijamin%20langsung%20tidur%20-%20Dunia%20Relaksasi.mp3"}, 
+    { id: 7, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/A1gemagus%20x%20ad%2Ctuying%20%28imam%29.mp3"}, 
+    { id: 8, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/Gemagus%28imam%29.mp3"},
+    { id: 9, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/a%2C%28imam%29sergmen.mp3"},
   ];
 
   const grid = document.getElementById('album-grid');
