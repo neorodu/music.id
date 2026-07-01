@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // ==================== PLAYLIST ALBUM ====================
   const albums = [
     { id: 1, title: "suara udan maen", artist: "Rain", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/raingueudan/rain%28gueudan%29.mp3" }, 
-    { id: 2, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-2-pendekar-3-x-adtuying-mashup/A2%20-%20pendekar3%20x%20ad%2Ctuying%20%28Mashup%29.mp3"}, 
+    { id: 2, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-2-pendekar-3-x-adtuying-mashup/A2%20-%20pendekar3%20x%20[...]
     { id: 3, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/iringan-2/Iringan2.mp3" },
     { id: 4, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3" },
-    { id: 5, title: "Tersesat di hutan rain", artist: "gemagus", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3" },
-  { id: 6, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20suasana%20desa%20dijamin%20langsung%20tidur%20-%20Dunia%20Relaksasi.mp3"}, 
-   { id: 7, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/A1gemagus%20x%20ad%2Ctuying%20%28imam%29.mp3"}, 
+    { id: 5, title: "Tersesat di hutan rain", artist: "gemagus", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3" [...]
+  { id: 6, title: "alam hujan", artist: "Alam", img: "https://picsum.photos/id/1016/400/400", audio: "https://archive.org/download/udan-di-desa/hujan%20gerimis%20suara%20katak%20dan%20jangkrik%20s[...]
+    { id: 7, title: "Mimpi malam", artist: "gemagus", img: "https://picsum.photos/400/400?random=1", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/A1gemagus%20x%20ad%2Ctuying%20%2[...]
     { id: 8, title: "intrument", artist: "gamagus", img: "https://picsum.photos/400/400?random=4", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/Gemagus%28imam%29.mp3" },
     { id: 9, title: "gemagus", artist: "flute", img: "https://picsum.photos/400/400?random=3", audio: "https://archive.org/download/a-1gemagus-x-adtuying-imam/a%2C%28imam%29sergmen.mp3" },
   ];
@@ -83,25 +83,37 @@ document.addEventListener('DOMContentLoaded', function() {
   function initAudioContext(audioElement) {
     if (!audioContext) {
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // Resume context jika dalam state suspended (untuk browser modern)
+      if (audioContext.state === 'suspended') {
+        audioContext.resume().then(() => {
+          console.log('AudioContext resumed ✓');
+        }).catch(err => {
+          console.error('Error resuming AudioContext:', err);
+        });
+      }
+      
       audioSource = audioContext.createMediaElementAudioSource(audioElement);
       
-      // Bass Filter (Low Pass / Low Shelf)
+      // Bass Filter (Low Shelf - untuk frekuensi rendah)
       bassFilter = audioContext.createBiquadFilter();
       bassFilter.type = 'lowshelf';
-      bassFilter.frequency.value = 200;
+      bassFilter.frequency.value = 200;  // Frekuensi bass (200 Hz)
       bassFilter.gain.value = 0;
+      bassFilter.Q.value = 0.5;
 
-      // Treble Filter (High Shelf)
+      // Treble Filter (High Shelf - untuk frekuensi tinggi)
       trebleFilter = audioContext.createBiquadFilter();
       trebleFilter.type = 'highshelf';
-      trebleFilter.frequency.value = 3000;
+      trebleFilter.frequency.value = 3000;  // Frekuensi treble (3 kHz)
       trebleFilter.gain.value = 0;
+      trebleFilter.Q.value = 0.5;
 
-      // Master Gain
+      // Master Gain (kontrol volume utama)
       masterGain = audioContext.createGain();
       masterGain.gain.value = 1;
 
-      // Connect: audioSource -> bass -> treble -> master -> destination
+      // Koneksi: audioSource -> bass -> treble -> master -> speaker
       audioSource.connect(bassFilter);
       bassFilter.connect(trebleFilter);
       trebleFilter.connect(masterGain);
@@ -131,30 +143,44 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <div class="mt-10">
-              <audio id="audio-player" class="w-full" controls></audio>
+              <audio id="audio-player" class="w-full" controls crossorigin="anonymous"></audio>
             </div>
 
             <!-- Bass & Treble Controls -->
             <div class="mt-6 bg-zinc-800 p-4 rounded-xl">
-              <div class="mb-4">
-                <label class="text-zinc-300 text-sm font-semibold block mb-2">
-                  Bass: <span id="bass-value">0</span>
-                </label>
-                <input id="bass-slider" type="range" min="-20" max="20" value="0" class="w-full accent-purple-500">
+              <div class="mb-5">
+                <div class="flex justify-between items-center mb-2">
+                  <label class="text-zinc-300 text-sm font-semibold">
+                    🔊 Bass
+                  </label>
+                  <span id="bass-value" class="text-purple-400 font-semibold text-sm">0 dB</span>
+                </div>
+                <input id="bass-slider" type="range" min="-20" max="20" value="0" class="w-full h-2 bg-zinc-700 rounded-lg accent-purple-500 cursor-pointer">
+                <div class="flex justify-between text-xs text-zinc-500 mt-1">
+                  <span>-20</span>
+                  <span>+20</span>
+                </div>
               </div>
 
               <div>
-                <label class="text-zinc-300 text-sm font-semibold block mb-2">
-                  Treble: <span id="treble-value">0</span>
-                </label>
-                <input id="treble-slider" type="range" min="-20" max="20" value="0" class="w-full accent-purple-500">
+                <div class="flex justify-between items-center mb-2">
+                  <label class="text-zinc-300 text-sm font-semibold">
+                    ✨ Treble
+                  </label>
+                  <span id="treble-value" class="text-purple-400 font-semibold text-sm">0 dB</span>
+                </div>
+                <input id="treble-slider" type="range" min="-20" max="20" value="0" class="w-full h-2 bg-zinc-700 rounded-lg accent-purple-500 cursor-pointer">
+                <div class="flex justify-between text-xs text-zinc-500 mt-1">
+                  <span>-20</span>
+                  <span>+20</span>
+                </div>
               </div>
             </div>
 
             <div class="flex justify-center gap-8 mt-8 text-5xl text-zinc-300">
-              <button id="prev-btn"><i class="fas fa-backward"></i></button>
-              <button id="play-pause-btn"><i class="fas fa-play-circle"></i></button>
-              <button id="next-btn"><i class="fas fa-forward"></i></button>
+              <button id="prev-btn" class="hover:text-purple-400 transition"><i class="fas fa-backward"></i></button>
+              <button id="play-pause-btn" class="hover:text-purple-400 transition"><i class="fas fa-play-circle"></i></button>
+              <button id="next-btn" class="hover:text-purple-400 transition"><i class="fas fa-forward"></i></button>
             </div>
 
             <div class="text-center mt-6 text-sm text-zinc-500">
@@ -177,17 +203,21 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('prev-btn').onclick = prevTrack;
     document.getElementById('play-pause-btn').onclick = togglePlay;
 
-    // Bass & Treble Sliders
+    // Bass & Treble Sliders dengan efek real-time
     document.getElementById('bass-slider').oninput = (e) => {
-      const value = e.target.value;
-      document.getElementById('bass-value').textContent = value;
-      if (bassFilter) bassFilter.gain.value = value;
+      const value = parseFloat(e.target.value);
+      document.getElementById('bass-value').textContent = value + ' dB';
+      if (bassFilter) {
+        bassFilter.gain.setValueAtTime(value, audioContext.currentTime);
+      }
     };
 
     document.getElementById('treble-slider').oninput = (e) => {
-      const value = e.target.value;
-      document.getElementById('treble-value').textContent = value;
-      if (trebleFilter) trebleFilter.gain.value = value;
+      const value = parseFloat(e.target.value);
+      document.getElementById('treble-value').textContent = value + ' dB';
+      if (trebleFilter) {
+        trebleFilter.gain.setValueAtTime(value, audioContext.currentTime);
+      }
     };
 
     audioElement.onended = nextTrack;
@@ -201,7 +231,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('current-track').textContent = index + 1;
     
     audioElement.src = track.audio;
-    audioElement.play();
+    audioElement.play().catch(err => {
+      console.log('Auto-play blocked, user interaction needed:', err);
+    });
   }
 
   function nextTrack() {
@@ -216,7 +248,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function togglePlay() {
     if (audioElement.paused) {
-      audioElement.play();
+      audioElement.play().catch(err => {
+        console.error('Play error:', err);
+      });
       document.getElementById('play-pause-btn').innerHTML = '<i class="fas fa-pause-circle"></i>';
     } else {
       audioElement.pause();
