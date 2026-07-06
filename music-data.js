@@ -72,11 +72,11 @@ const TRACKS = [
     src: "https://archive.org/download/raingueudan/rain%28gueudan%29.mp3"
   },
   {
-    title: "music5",
-    artist: "FLUTEMUSIC",
-    tag: "Instrumental",
+    title: "alam",
+    artist: "Rain",
+    tag: "udan",
     cover: "https://picsum.photos/id/177/300/300",
-    src: "https://archive.org/download/a-2-pendekar-3-x-adtuying-mashup/A2%20-%20pendekar3%20x%20ad%2Ctuying%20%28Mashup%29.mp3"
+    src: "https://archive.org/download/mashugemagusudan/mashugemagus%28udan%29%20.mp3"
   },
     {
     title: "main lah",
