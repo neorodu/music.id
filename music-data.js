@@ -1,7 +1,7 @@
 /* =========================================================
    FLUTEMUSIC — data file
-   Ganti nilai di bawah ini dengan konten musik sendiri:
-   - MUSICIANS  -> slide untuk hero slideshow
+    di bawah ini dengan konten musik sendiri:
+   - MUSICIANS  -> Gemagus
    - TRACKS     -> daftar lagu di tracklist & pemutar
 
    Catatan:
@@ -11,13 +11,13 @@
 const MUSICIANS = [
   {
     eyebrow: "SESI // 01",
-    title: "Di Balik endog",
+    title: "Di Balik gelap",
     desc: "Proses produksi malam hari pribadi.",
-    image: "https://picsum.photos/id/1016/400/400"
+    image: "https://i.imgur.com/uiUAkv4.png"
   },
   {
     eyebrow: "SESI // 02",
-    title: "Live ",
+    title: "on time",
     desc: "Rekaman flute .",
     image: "https://picsum.photos/400/400?random=4"
   },
@@ -30,7 +30,7 @@ const MUSICIANS = [
   {
     eyebrow: "SESI // 04",
     title: "gunung",
-    desc: "Momen tampil langsung — energi yang selalu jadi alasan untuk terus membuat musik.",
+    desc: "belajar yang selalu jadi alasan untuk terus membuat musik.",
    image: "https://picsum.photos/400/400?random=3"
   }
 ];
