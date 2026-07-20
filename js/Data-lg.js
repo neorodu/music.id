@@ -9,8 +9,8 @@
   const audioEl = document.getElementById('audioEl');
 
   const bands = [
-    { key:'subbass', label:'Sub Bass', freq:60,   type:'lowshelf', color:'--band-subbass' },
-    { key:'bass',    label:'Bass',     freq:150,  type:'peaking',  color:'--band-bass',   Q:1 },
+    { key:'subbass', label:'Sub Bass', freq:40,   type:'lowshelf', color:'--band-subbass' },
+    { key:'bass',    label:'Bass',     freq:80,  type:'peaking',  color:'--band-bass',   Q:0,8},
     { key:'lowmid',  label:'Low Mid',  freq:400,  type:'peaking',  color:'--band-lowmid', Q:1 },
     { key:'mid',     label:'Mid',      freq:1000, type:'peaking',  color:'--band-mid',    Q:1 },
     { key:'highmid', label:'High Mid', freq:2500, type:'peaking',  color:'--band-highmid',Q:1 },
@@ -27,10 +27,10 @@
     actx = new AudioCtx();
 
     subbassF = actx.createBiquadFilter();
-    subbassF.type = 'lowshelf'; subbassF.frequency.value = 60; subbassF.gain.value = 0;
+    subbassF.type = 'lowshelf'; subbassF.frequency.value = 50; subbassF.gain.value = 6;
 
     bassF = actx.createBiquadFilter();
-    bassF.type = 'peaking'; bassF.frequency.value = 150; bassF.Q.value = 1; bassF.gain.value = 0;
+    bassF.type = 'peaking'; bassF.frequency.value = 120; bassF.Q.value = 1; bassF.gain.value = 3;
 
     lowMidF = actx.createBiquadFilter();
     lowMidF.type = 'peaking'; lowMidF.frequency.value = 400; lowMidF.Q.value = 1; lowMidF.gain.value = 0;
@@ -45,10 +45,10 @@
     trebleF.type = 'peaking'; trebleF.frequency.value = 6000; trebleF.Q.value = 1; trebleF.gain.value = 0;
 
     presenceF = actx.createBiquadFilter();
-    presenceF.type = 'peaking'; presenceF.frequency.value = 9000; presenceF.Q.value = 1; presenceF.gain.value = 0;
+    presenceF.type = 'peaking'; presenceF.frequency.value = 6000; presenceF.Q.value = 1,2; presenceF.gain.value = 3;
 
     airF = actx.createBiquadFilter();
-    airF.type = 'highshelf'; airF.frequency.value = 14000; airF.gain.value = 0;
+    airF.type = 'highshelf'; airF.frequency.value = 14000; airF.gain.value = 2;
 
     masterGain = actx.createGain();
     masterGain.gain.value = volume;
