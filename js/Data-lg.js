@@ -10,7 +10,7 @@
 
   const bands = [
     { key:'subbass', label:'Sub Bass', freq:40,   type:'lowshelf', color:'--band-subbass' },
-    { key:'bass',    label:'Bass',     freq:80,  type:'peaking',  color:'--band-bass',   Q:0,8},
+    { key:'bass',    label:'Bass',     freq:80,  type:'peaking',  color:'--band-bass',   Q:8},
     { key:'lowmid',  label:'Low Mid',  freq:400,  type:'peaking',  color:'--band-lowmid', Q:1 },
     { key:'mid',     label:'Mid',      freq:1000, type:'peaking',  color:'--band-mid',    Q:1 },
     { key:'highmid', label:'High Mid', freq:2500, type:'peaking',  color:'--band-highmid',Q:1 },
