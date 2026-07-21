@@ -112,7 +112,10 @@
       genre:"epic",  url:"https://archive.org/download/musik-ajaib-gunakan/MUSIK%20AJAIB%20GUNAKAN%20HEADSET%20%20DJ%208D%20SUPER%20FULL%20BASS%20TERBARU%202025%20%28MHLS%20PRO%29.mp3" },
          { title:"berbicara dalam batu",  
       artist:"gemagus",
-      genre:"flute",  url:"https://archive.org/download/ket-3enanganmashub/gemagua%28mashub%29.mp3" } 
+      genre:"flute",  url:"https://archive.org/download/ket-3enanganmashub/gemagua%28mashub%29.mp3" }, 
+     { title:"Rain udan",  
+      artist:"alam",
+      genre:"rain8",  url:"https://archive.org/download/udan-enak/udan%20enak.mp3" } 
     ];
     
     
