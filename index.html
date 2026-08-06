@@ -20,6 +20,9 @@
       <span class="logo-text">Flutemusic</span>
     </div>
     
+    <!-- Added upload button so the existing script can find #btnUpload -->
+    <button class="btn-upload" id="btnUpload" title="Upload">Upload</button>
+
     <input type="file" id="fileInput" accept="audio/*" multiple hidden>
   </div>
 
@@ -132,9 +135,22 @@
 
 <script src="js/Player.js"></script>
 <script>
-  document.getElementById('btnUpload').addEventListener('click', () => {
-    document.getElementById('fileInput').click();
-  });
+  // Safely attach upload behavior. If #btnUpload is missing, fallback to clicking album-art.
+  (function(){
+    const btnUpload = document.getElementById('btnUpload');
+    const fileInput = document.getElementById('fileInput');
+    if (btnUpload && fileInput) {
+      btnUpload.addEventListener('click', () => {
+        fileInput.click();
+      });
+    } else if (fileInput) {
+      const album = document.querySelector('.album-art');
+      if (album) {
+        album.style.cursor = 'pointer';
+        album.addEventListener('click', () => fileInput.click());
+      }
+    }
+  })();
 </script>
 
 </body>
