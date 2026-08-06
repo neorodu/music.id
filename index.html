@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title> Flute Music</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <span class="logo-icon">◈</span>
+      <span class="logo-text">Flutemusic</span>
+    </div>
+    
+    <input type="file" id="fileInput" accept="audio/*" multiple hidden>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- LEFT: PLAYER -->
+    <div class="player-section">
+      <div class="album-art-wrap">
+        <div class="glow-ring"></div>
+        <div class="album-art">
+          <i class="art-placeholder">♪</i>
+          <canvas id="visualizer"></canvas>
+        </div>
+      </div>
+
+      <div class="track-info">
+        <div class="track-title" id="trackTitle">Pilih lagu...</div>
+        <div class="track-artist" id="trackArtist">—</div>
+      </div>
+
+      <div class="progress-wrap">
+        <span class="time" id="currentTime">0:00</span>
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="progress-thumb" id="progressThumb"></div>
+        </div>
+        <span class="time" id="duration">0:00</span>
+      </div>
+
+      <div class="controls">
+        <button class="ctrl-btn mode-btn" id="btnShuffle" title="Shuffle">🔀</button>
+        <button class="ctrl-btn" id="btnPrev" title="Previous">⏮</button>
+        <button class="ctrl-btn play-btn" id="btnPlay" title="Play/Pause">▶</button>
+        <button class="ctrl-btn" id="btnNext" title="Next">⏭</button>
+        <button class="ctrl-btn mode-btn" id="btnRepeat" title="Repeat">🔁</button>
+      </div>
+
+      <div class="volume-section">
+        <div class="fx-row">
+          <div class="knob-group">
+            <div class="knob-3d volume-knob" data-param="volume" data-min="0" data-max="1" data-value="0.8">
+              <div class="knob-body">
+                <div class="knob-indicator"></div>
+                <div class="knob-center"></div>
+              </div>
+              <div class="knob-shadow"></div>
+            </div>
+            <span class="knob-label">Volume</span>
+            <span class="knob-value" id="volVal">80%</span>
+          </div>
+
+          <div class="knob-group">
+            <div class="knob-3d fx-knob" data-param="echo" data-min="0" data-max="1" data-value="0">
+              <div class="knob-body">
+                <div class="knob-indicator"></div>
+                <div class="knob-center"></div>
+              </div>
+              <div class="knob-shadow"></div>
+            </div>
+            <span class="knob-label">Echo</span>
+            <span class="knob-value" id="echoVal">Off</span>
+          </div>
+
+          <div class="knob-group">
+            <div class="knob-3d fx-knob" data-param="reverb" data-min="0" data-max="1" data-value="0">
+              <div class="knob-body">
+                <div class="knob-indicator"></div>
+                <div class="knob-center"></div>
+              </div>
+              <div class="knob-shadow"></div>
+            </div>
+            <span class="knob-label">Gema</span>
+            <span class="knob-value" id="reverbVal">Off</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: EQUALIZER + PLAYLIST -->
+    <div class="right-col">
+
+      <div class="eq-section">
+        <div class="eq-header">
+          <h2>EQUALIZER</h2>
+          <button class="btn-reset" id="btnResetEQ">Reset</button>
+        </div>
+
+        <div class="eq-knobs" id="eqKnobs"></div>
+
+        <div class="eq-presets">
+          <button class="preset-btn" data-preset="flat">Flat</button>
+          <button class="preset-btn" data-preset="bass">Bass Boost</button>
+          <button class="preset-btn" data-preset="treble">Treble</button>
+          <button class="preset-btn" data-preset="vocal">Vocal</button>
+          <button class="preset-btn" data-preset="rock">Rock</button>
+        </div>
+      </div>
+
+      <div class="playlist-section">
+        <h3>PLAYLIST <span id="trackCount">0</span></h3>
+        <ul class="playlist" id="playlist"></ul>
+        <div class="hint">UI&amp; gemagus</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="Player.js"></script>
+<script>
+  document.getElementById('btnUpload').addEventListener('click', () => {
+    document.getElementById('fileInput').click();
+  });
+</script>
+
+</body>
+</html>
