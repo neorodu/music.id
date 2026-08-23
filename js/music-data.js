@@ -19,7 +19,7 @@ const MUSICIANS = [
   {
     eyebrow: "SESI // 02",
     title: "Air mentari ",
-    desc: "Rekaman flute .",
+    desc: "Rekaman .",
     image: "https://picsum.photos/400/400?random=4"
   },
   {
@@ -29,12 +29,13 @@ const MUSICIANS = [
     image: "https://picsum.photos/400/400?random=1"
   },
   {
-    eyebrow: "SESI // 04",
-    title: "gunung chadas",
-    desc: "energi yang selalu jadi alasan untuk terus membuat musik.",
-   image: "https://picsum.photos/400/400?random=3"
+     eyebrow: "SESI // 04",
+    title: "Perjalanan ",
+    desc: "musik composition suno. ",
+    image: "https://picsum.photos/400/400?random=1"
   }
-];
+   
+  ];
 
 const TRACKS = [
   {
@@ -87,11 +88,11 @@ const TRACKS = [
     src: "https://archive.org/download/a-1gemagus-x-adtuying-imam/A1gemagus%20x%20ad%2Ctuying%20%28imam%29.mp3"
   },
     {
-    title: "music6",
-    artist: "FLUTEMUSIC",
-    tag: "Instrumental",
+    title: "udan",
+    artist: "Desa",
+    tag: "Rain",
     cover: "https://picsum.photos/id/177/300/300",
-    src: "https://archive.org/download/iringan-2/Iringan2.mp3"
+    src: "https://archive.org/download/udan-enak/udan%20enak.mp3"
   },
     {
     title: "flute",
