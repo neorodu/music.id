@@ -2,7 +2,7 @@
   "use strict";
 
   /* ===================================================
-     NAVBAR — hamburger toggle
+     zip msi
      =================================================== */
   const hamburgerBtn = document.getElementById("hamburgerBtn");
   const navMenu = document.getElementById("navMenu");
@@ -154,6 +154,11 @@
   let repeatMode = "off";
   let isShuffle = false;
 
+  // 10-band equalizer
+  const EQ_BANDS = [31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
+  const eqGains = EQ_BANDS.map(() => 0);
+  let eqFilters = [];
+
   function setupAudioGraph() {
     if (audioCtx) return; // already set up
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -175,11 +180,18 @@
     gainNode = audioCtx.createGain();
     gainNode.gain.value = Number(volRange.value) / 100;
 
-    sourceNode
-      .connect(bassFilter)
-      .connect(trebleFilter)
-      .connect(gainNode)
-      .connect(audioCtx.destination);
+    eqFilters = EQ_BANDS.map((freq, i) => {
+      const f = audioCtx.createBiquadFilter();
+      f.type = "peaking";
+      f.frequency.value = freq;
+      f.Q.value = 1.4;
+      f.gain.value = eqGains[i];
+      return f;
+    });
+
+    let node = sourceNode.connect(bassFilter);
+    eqFilters.forEach((f) => { node = node.connect(f); });
+    node.connect(trebleFilter).connect(gainNode).connect(audioCtx.destination);
   }
 
   function loadTrack(index, autoplay) {
@@ -346,12 +358,79 @@
   });
 
   /* ===================================================
+     EQUALIZER UI — toggle + 10 slider
+     =================================================== */
+  const eqToggle = document.getElementById("eqToggle");
+  const eqPanel = document.getElementById("eqPanel");
+  const eqBandsEl = document.getElementById("eqBands");
+  const eqReset = document.getElementById("eqReset");
+  const eqSliders = [];
+  const eqDbLabels = [];
+
+  function formatFreq(hz) {
+    return hz >= 1000 ? `${hz / 1000}k` : `${hz}`;
+  }
+  function formatDb(v) {
+    return (v > 0 ? "+" : "") + v;
+  }
+
+  function buildEqualizer() {
+    EQ_BANDS.forEach((freq, i) => {
+      const band = document.createElement("div");
+      band.className = "eq-band";
+      band.innerHTML = `
+        <span class="eq-band__db">0</span>
+        <div class="eq-band__slider">
+          <input type="range" min="-12" max="12" step="1" value="0" aria-label="${formatFreq(freq)} Hz">
+        </div>
+        <span class="eq-band__freq">${formatFreq(freq)}</span>
+      `;
+      const input = band.querySelector("input");
+      const db = band.querySelector(".eq-band__db");
+      input.addEventListener("input", () => {
+        const v = Number(input.value);
+        eqGains[i] = v;
+        if (eqFilters[i]) eqFilters[i].gain.value = v;
+        db.textContent = formatDb(v);
+        updateRangeFill(input);
+      });
+      eqSliders.push(input);
+      eqDbLabels.push(db);
+      updateRangeFill(input);
+      eqBandsEl.appendChild(band);
+    });
+  }
+
+  function setEqOpen(open) {
+    eqPanel.classList.toggle("is-open", open);
+    eqPanel.setAttribute("aria-hidden", String(!open));
+    eqToggle.setAttribute("aria-expanded", String(open));
+    eqToggle.setAttribute("aria-label", open ? "Tutup equalizer" : "Buka equalizer");
+  }
+
+  eqToggle.addEventListener("click", () => setEqOpen(!eqPanel.classList.contains("is-open")));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setEqOpen(false);
+  });
+
+  eqReset.addEventListener("click", () => {
+    eqSliders.forEach((input, i) => {
+      input.value = "0";
+      eqGains[i] = 0;
+      if (eqFilters[i]) eqFilters[i].gain.value = 0;
+      eqDbLabels[i].textContent = "0";
+      updateRangeFill(input);
+    });
+  });
+
+  /* ===================================================
      INIT
      =================================================== */
   function init() {
     buildSlides();
     resetSlideTimer();
     buildTrackRows();
+    buildEqualizer();
     updateRangeFill(bassRange);
     updateRangeFill(trebleRange);
     updateRangeFill(volRange);
