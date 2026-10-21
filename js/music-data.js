@@ -10,6 +10,7 @@
    ========================================================= */
 
 const MUSICIANS = [
+   
   {
     eyebrow: "SESI // 01",
     title: "Di Balik gelap",
@@ -38,6 +39,13 @@ const MUSICIANS = [
   ];
 
 const TRACKS = [
+   {
+    title: "hujan di gubug",
+    artist: "gemagus",
+    tag: "udan",
+    cover: "https://picsum.photos/id/1062/300/300",
+    src: "https://archive.org/download/maen.udan/maen.udan.mp3"
+  },
   {
     title: "gemagus",
     artist: "FLUTEMUSIC",
