@@ -2,7 +2,7 @@
   "use strict";
 
   /* ===================================================
-     zip msi
+     entung
      =================================================== */
   const hamburgerBtn = document.getElementById("hamburgerBtn");
   const navMenu = document.getElementById("navMenu");
@@ -22,7 +22,28 @@
   });
 
   /* ===================================================
-     SLIDESHOW — musisi
+     zipmsi
+     =================================================== */
+  const themeToggle = document.getElementById("themeToggle");
+  const rootEl = document.documentElement;
+
+  function applyTheme(theme) {
+    const isBrown = theme === "brown";
+    if (isBrown) rootEl.setAttribute("data-theme", "brown");
+    else rootEl.removeAttribute("data-theme");
+    themeToggle.setAttribute("aria-pressed", String(isBrown));
+    themeToggle.setAttribute("aria-label", isBrown ? "Ganti tema: cyber neon" : "Ganti tema: coklat tua");
+  }
+
+  themeToggle.addEventListener("click", () => {
+    const next = rootEl.getAttribute("data-theme") === "brown" ? "cyber" : "brown";
+    applyTheme(next);
+    try { localStorage.setItem("flutemusic-theme", next); } catch (e) {}
+  });
+  applyTheme(rootEl.getAttribute("data-theme") === "brown" ? "brown" : "cyber");
+
+  /* ===================================================
+      musisi
      =================================================== */
   const slideshowEl = document.getElementById("slideshow");
   const slideDots = document.getElementById("slideDots");
@@ -82,7 +103,7 @@
   slideNext.addEventListener("click", () => goToSlide(currentSlide + 1));
 
   /* ===================================================
-     TRACKLIST — render dari TRACKS
+    lg rendering
      =================================================== */
   const trackListEl = document.getElementById("trackList");
   let activeTrackIndex = -1;
@@ -125,7 +146,7 @@
   }
 
   /* ===================================================
-     AUDIO PLAYER + WEB AUDIO FX (bass / treble)
+     AUDIO 
      =================================================== */
   const audioEl = document.getElementById("audioEl");
   const playerEl = document.getElementById("player");
@@ -148,13 +169,11 @@
   let audioCtx = null;
   let bassFilter, trebleFilter, sourceNode, gainNode;
 
-  // "off" -> lanjut berurutan, berhenti di lagu terakhir
-  // "all" -> lanjut berurutan, ulang dari lagu pertama setelah lagu terakhir
-  // "one" -> ulang lagu yang sama terus-menerus
+  // "off" -> lanjut berurutan, berhenti di lagu
   let repeatMode = "off";
   let isShuffle = false;
 
-  // 10-band equalizer
+  // tuling
   const EQ_BANDS = [31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
   const eqGains = EQ_BANDS.map(() => 0);
   let eqFilters = [];
@@ -263,7 +282,7 @@
     return idx;
   }
 
-  // menghitung index track berikutnya. wrapAlways = true untuk tombol manual (selalu lanjut/wrap)
+  
   function getShuffleOrSequentialIndex(wrapAlways) {
     if (isShuffle) return randomIndexExcluding(activeTrackIndex);
     const seqNext = activeTrackIndex + 1;
@@ -358,7 +377,7 @@
   });
 
   /* ===================================================
-     EQUALIZER UI — toggle + 10 slider
+     
      =================================================== */
   const eqToggle = document.getElementById("eqToggle");
   const eqPanel = document.getElementById("eqPanel");
