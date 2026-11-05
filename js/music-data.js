@@ -40,6 +40,13 @@ const MUSICIANS = [
 
 const TRACKS = [
    {
+   title: "rain",
+    artist: "udan",
+    tag: "gema",
+    cover: "https://picsum.photos/id/1062/300/300",
+    src: "https://archive.org/download/udanan/udanan.mp3"
+  },
+   {
     title: "hujan di gubug",
     artist: "gemagus",
     tag: "udan",
